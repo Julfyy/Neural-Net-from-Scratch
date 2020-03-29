@@ -107,38 +107,42 @@ class Classifier:
                 
                 
     def fit_data(self, x_train, y_train, epochs):
-        cost = []
-        accuracy = []
+        cost = [[]]
+        accuracy = [[]]
         
         for epoch in range(1, epochs + 1):
-            print('Epoch number', epoch)
-            for image in range(len(x_train)):#For every image in batch
+            cost.append([])
+            accuracy.append([])
+
+            print('\n==============Epoch ', epoch, "=============")
+            for number in range(len(x_train)):#For every number
                 
-                print('\n=====№', image)
+                print('\n=====№', number)
                 
                 #Initialize y_hat
-                self.y_hat[y_train[image]] = 1
+                self.y_hat[y_train[number]] = 1
                 
-                print("Number is: ", y_train[image])
+                #print("Number is: ", y_train[number])
 
                 #initialize an input layer
-                self.input = x_train[image]
+                self.input = x_train[number]
                 
-                #Feed every image forward
+                #Feed every set forward
                 self.feed_forward()
                 
                 #Calculate cost and accuracy
-                cost.append(self.cost(self.output, self.y_hat))
-                print("Cost: ", cost[-1])
-                accuracy.append(round(100 - (cost[-1] * 100 / self.output_dim)))
-                print('Accuracy is: ', accuracy[-1], '%')
+                cost[epoch].append(self.cost(self.output, self.y_hat))
+                print("Cost: ", cost[epoch][-1])
+                accuracy[epoch].append(round(100 - (cost[epoch][-1] * 100 / self.output_dim)))
+                print('Accuracy is: ', accuracy[epoch][-1], '%')
                                 
                 self.back_propagation()
                 
-                print('Output is a number: s', np.argmax(self.output))
+                #print('Output is a number: ', np.argmax(self.output))
+                
                 self.y_hat = np.zeros(self.output_dim)
-        print('\nAverage cost is: ', np.mean(cost))
-        print('Average accuracy is ', np.mean(accuracy), '%')
+        print('\nAverage cost is: %0.4f ' % np.mean(cost[-1]))
+        print('Average accuracy is ', np.mean(accuracy[-1]), '%')
         
                 
                 

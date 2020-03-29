@@ -3,11 +3,10 @@ This program is a simple neural network to classify binary numbers in range from
 
 It has 3 neurons for input and 7 for output, and 5 hidden ones
 
-Average accuracy is 97,62% with 20 epochs
-Average cost value is 0.19
+Average accuracy is 99,79% on 20th epoch
+Average cost value is 0.03
 
 '''
-
 
 from bin_classifier import Classifier
 import numpy as np
@@ -39,6 +38,9 @@ cl.fit_data(x_train,y_train, epochs=20)
 
 #Make a single prediction
 #cl.single_prediction([0,0,1])
+
+
+
 
 
 
